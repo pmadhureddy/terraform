@@ -1,3 +1,20 @@
+resource "aws_instance" "expense" {
+  count = length((var.instance_names))
+  ami           = "ami-09c813fb71547fc4f"
+  instance_type =  "t3.micro"
+  vpc_security_group_ids = [aws_security_group.allow_ssh_terraform.id]
+
+
+  tags = merge(
+
+  var.common_tags, 
+  {
+    Name = var.instance_names[count.index]
+  }
+)
+}
+
+
 resource "aws_security_group" "allow_ssh_terraform" {
   name        = "allow_ssh"
   description = "Allow port number 22 for ssh access"
@@ -34,21 +51,4 @@ tags = merge(
   }
 
 
-}
-
-
-resource "aws_instance" "terraform" {
-  count = length((var.instance_names))
-  ami           = "ami-09c813fb71547fc4f"
-  instance_type =  "t3.micro"
-  vpc_security_group_ids = [aws_security_group.allow_ssh_terraform.id]
-
-
-  tags = merge(
-
-  var.common_tags, 
-  {
-    Name = var.instance_names[count.index]
-  }
-)
 }

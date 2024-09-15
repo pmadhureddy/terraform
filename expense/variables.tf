@@ -1,6 +1,6 @@
 variable "instance_names" {
     type = list(string)
-    default = [ "backend", "frontend", "mysql" ]
+    default = [ "backend1", "frontend1", "mysql1" ]
 }
 
 variable "common_tags" {
@@ -10,4 +10,14 @@ variable "common_tags" {
     Environment = "dev"
     Terraform = "true"
    }
+}
+
+variable "zone_id" {
+    default = "Z02068521N32RSS3OA0L5"
+  
+}
+
+variable "domain_name" {
+    default = "daws81.fun"
+  
 }

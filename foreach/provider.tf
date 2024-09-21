@@ -5,6 +5,15 @@ terraform {
       version = "~> 5.0"
     }
   }
+
+  backend "s3" {
+    bucket         = "madhu-locking-state"
+    key            = "for-each-demo"
+    region         = "us-east-1"
+    dynamodb_table = "terraformlocking"
+  }
+
+
 }
 
 # Configure the AWS Provider

@@ -1,7 +1,7 @@
 resource "aws_instance" "expense1" {
-  count = length((var.instance_names))
-  ami           = data.aws_ami.aws_info.id    
-  instance_type =  var.instance_names[count.index] == "mysql" ? "t3.small" : "t3.micro"
+  count                  = length((var.instance_names))
+  ami                    = data.aws_ami.aws_info.id
+  instance_type          = var.instance_names[count.index] == "mysql" ? "t3.small" : "t3.micro"
   vpc_security_group_ids = [aws_security_group.allow_ssh_terraform.id]
 
 
@@ -15,16 +15,16 @@ resource "aws_instance" "expense1" {
 resource "aws_security_group" "allow_ssh_terraform" {
   name        = "allow_ssh"
   description = "Allow port number 22 for ssh access"
-#   vpc_id      = aws_vpc.main.id
+  #   vpc_id      = aws_vpc.main.id
 
 
-tags = {
+  tags = {
     Name = "allow_ssh"
   }
 
 
-#usually allows everything in egress
-    egress {
+  #usually allows everything in egress
+  egress {
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
